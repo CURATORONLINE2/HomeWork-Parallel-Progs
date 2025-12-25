@@ -55,7 +55,15 @@ float computeResidualCPU(const float* A, const float* x, const float* b, int n)
         num += r*r;
         den += b[i]*b[i];
     }
-    return (den == 0.0f) ? sqrtf(num) : sqrtf(num / den);
+    if (den == 0.0f)
+    {
+        return sqrtf(num);
+    }
+    else
+    {
+        return sqrtf(num / den);
+    }
+
 }
 
 __global__ void matVecKernel(const float* A, const float* x, float* y, int n)
